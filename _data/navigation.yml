@@ -11,6 +11,9 @@ main:
   - title: "Publications"
     url: /publications/
 
+  - title: "Tracking Board"
+    url: /tracking-board/
+
   - title: "Talks"
     url: /talks/    
 
