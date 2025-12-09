@@ -34,7 +34,13 @@
         <li><a href="{{ author.uri }}"><i class="fas fa-fw fa-link icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].website_label | default: "Website" }}</a></li>
       {% endif %}
       {% if author.email %}
-        <li><a href="mailto:{{ author.email }}"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>{{ site.data.ui-text[site.locale].email_label | default: "Email" }}</a></li>
+        <li>
+          <a href="mailto:{{ author.email }}" id="author-email-link" onclick="copyEmail(event, '{{ author.email }}')">
+            <i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>
+            {{ site.data.ui-text[site.locale].email_label | default: "Email" }}
+          </a>
+          <span id="email-copy-msg" style="display:none; background-color: white; color: black; margin-left: 5px; padding: 0 5px;">메일 주소가 복사되었습니다.</span>
+        </li>
       {% endif %}
 
       <!-- Font Awesome and Academicons icons / Academic websites -->
@@ -168,3 +174,28 @@
     </ul>
   </div>
 </div>
+
+<script>
+  function copyEmail(event, email) {
+    event.preventDefault();
+    const msg = document.getElementById('email-copy-msg');
+    const link = document.getElementById('author-email-link');
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(email).then(() => {
+      // Show message
+      msg.style.display = 'inline';
+      
+      // Match font size
+      const style = window.getComputedStyle(link);
+      msg.style.fontSize = style.fontSize;
+
+      // Hide after 3 seconds
+      setTimeout(() => {
+        msg.style.display = 'none';
+      }, 3000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+</script>
