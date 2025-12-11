@@ -174,28 +174,3 @@
     </ul>
   </div>
 </div>
-
-<script>
-  function copyEmail(event, email) {
-    event.preventDefault();
-    const msg = document.getElementById('email-copy-msg');
-    const link = document.getElementById('author-email-link');
-    
-    // Copy to clipboard
-    navigator.clipboard.writeText(email).then(() => {
-      // Show message
-      msg.style.display = 'inline';
-      
-      // Match font size
-      const style = window.getComputedStyle(link);
-      msg.style.fontSize = style.fontSize;
-
-      // Hide after 3 seconds
-      setTimeout(() => {
-        msg.style.display = 'none';
-      }, 3000);
-    }).catch(err => {
-      console.error('Failed to copy: ', err);
-    });
-  }
-</script>

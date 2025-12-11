@@ -1,3 +1,28 @@
 <script type="module" src="{{ base_path }}/assets/js/main.min.js"></script>
 
 {% include analytics.html %}
+
+<script>
+  function copyEmail(event, email) {
+    event.preventDefault();
+    var msg = document.getElementById('email-copy-msg');
+    var link = document.getElementById('author-email-link');
+    
+    /* Copy to clipboard */
+    navigator.clipboard.writeText(email).then(function() {
+      /* Show message */
+      msg.style.display = 'inline';
+      
+      /* Match font size */
+      var style = window.getComputedStyle(link);
+      msg.style.fontSize = style.fontSize;
+
+      /* Hide after 3 seconds */
+      setTimeout(function() {
+        msg.style.display = 'none';
+      }, 3000);
+    }).catch(function(err) {
+      console.error('Failed to copy: ', err);
+    });
+  }
+</script>
